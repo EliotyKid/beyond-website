@@ -4,26 +4,10 @@ import styles from "./style.module.scss"
 import { motion } from "framer-motion";
 import Footer from "./Footer/index"
 import Curve from "./Curve/index"
+import { navItems } from "./navItems"
 
 const index = () => {
-  const navItems = [
-    {
-      title: "Home",
-      href: "/"
-    },
-    {
-      title: "Work",
-      href: "/Work"
-    },
-    {
-      title: "About",
-      href: "/About"
-    },
-    {
-      title: "Contact",
-      href: "/Contact"
-    },
-  ]
+ 
 
   return ( 
     <motion.div 

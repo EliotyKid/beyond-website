@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./global.css"
 import SideHeader from "../components/SideHeader/index"
+import { cooperHewitt } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Beyond",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={cooperHewitt.className}>
         <SideHeader/>
         {children}
       </body>

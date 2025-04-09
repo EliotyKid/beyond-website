@@ -2,24 +2,49 @@ import styles from "./style.module.scss"
 import Book from "./Book/index"
 import Image from "next/image";
 import ScrollIndicator from "./ScrollIndicator/index"
+import { motion } from "framer-motion";
+import { logoVariant, opacity } from "./anim"
 
-const index = () => {
+interface props {
+  canAnimate: boolean
+}
+
+const index = ({canAnimate}: props) => {
   return ( 
     <div className={styles.main}>
-      <div className={styles.logo}>
+      <motion.div 
+        variants={logoVariant}
+        initial="initial"
+        animate={`${canAnimate ? "enter" : "initial"}`}
+        className={styles.logo}
+      >
         <Image
           src="/Beyond.webp"
           alt=""
           width={600}
           height={250}
         />
-      </div>
+      </motion.div>
 
-      <div className={styles.book}>
+      <motion.div 
+        variants={opacity}
+        initial="initial"
+        animate={`${canAnimate ? "enter" : "initial"}`}
+        custom={1}
+        className={styles.book}
+      >
         <Book/>
-      </div>
+      </motion.div>
 
-      <ScrollIndicator/>
+      <motion.div 
+        variants={opacity}
+        initial="initial"
+        animate={`${canAnimate ? "enter" : "initial"}`}
+        custom={3}
+        className={styles.book}
+      >
+        <ScrollIndicator/>
+      </motion.div>
     </div>
    );
 }

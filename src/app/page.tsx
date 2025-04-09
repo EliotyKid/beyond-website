@@ -8,17 +8,22 @@ import AmbientSound from "@/components/AmbientSound";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
+  const [canAnimateHero, setCanAnimateHero] = useState(false) 
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
       document.body.style.cursor = 'default'
+      window.scrollTo(0, 0)
     }, 2000)
-  })
+  },[])
 
   return (
     <main>
-      <AnimatePresence mode="wait">
+      <AnimatePresence 
+        mode="wait"
+        onExitComplete={() => setCanAnimateHero(true)}
+      >
         { isLoading && <Preloader /> }
       </AnimatePresence>
 
@@ -26,7 +31,7 @@ export default function Home() {
 
       <div className={styles.containerSecrions}>
         <section>
-          <Hero/>
+          <Hero canAnimate={canAnimateHero}/>
         </section>
       </div>
     </main>
