@@ -7,7 +7,6 @@ import Curve from "./Curve/index"
 import { navItems } from "./navItems"
 
 const index = () => {
- 
 
   return ( 
     <motion.div 
@@ -24,7 +23,7 @@ const index = () => {
           </div>
             {
               navItems.map((item, index) => {
-                return <Link key={index} data={{...item,index}}/>
+                return (<Link key={index} data={{...item,index}}/>)
               })
             }
         </div>

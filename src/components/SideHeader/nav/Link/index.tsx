@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { slide } from "../../anim";
 
 interface DataType {
+  
+
   data: {
     href: string,
     title: string,
@@ -12,16 +14,17 @@ interface DataType {
 }
 
 const index = ({data}: DataType) => {
+  
+
   return ( 
     <motion.div
       variants={slide}
       animate="enter"
       exit="exit"
       initial="initial"
-      className={styles.link} 
       custom={data.index}
     >
-      <Link href={data.href} >
+      <Link href={data.href}  >
         {data.title}
       </Link>
     </motion.div>
