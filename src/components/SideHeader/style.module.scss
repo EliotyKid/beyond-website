@@ -4,7 +4,7 @@
   margin: 20px;
   width: 60px;
   height: 60px;
-  background-color: #455CE9;
+  background-color: rgb(41, 41, 41);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -34,6 +34,7 @@
   }
 
   .burguerActive{
+
     &::after{
       top: -1px;
       transform: rotate(45deg);

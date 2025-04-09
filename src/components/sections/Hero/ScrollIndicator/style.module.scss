@@ -1,0 +1,39 @@
+.scrollIndicator {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  color: #333;
+  width: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+ 
+
+  .arrow {
+    font-size: 24px;
+    display: block;
+  }
+
+  span {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+}
+
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
+}

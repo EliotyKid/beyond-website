@@ -1,7 +1,10 @@
 "use client"
+import styles from "./page.module.scss"
 import { useEffect, useState } from "react";
 import Preloader from "../components/Preloader/index"
 import { AnimatePresence } from "framer-motion";
+import Hero from "../components/sections/Hero/index"
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -18,7 +21,11 @@ export default function Home() {
       <AnimatePresence mode="wait">
         { isLoading && <Preloader /> }
       </AnimatePresence>
-      <div>Hello world!</div>
+      <div className={styles.containerSecrions}>
+        <section>
+          <Hero/>
+        </section>
+      </div>
     </main>
   );
 }
