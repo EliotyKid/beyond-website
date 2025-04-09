@@ -1,10 +1,10 @@
 "use client"
 import styles from "./page.module.scss"
 import { useEffect, useState } from "react";
-import Preloader from "../components/Preloader/index"
+import Preloader from "@/components/Preloader"
 import { AnimatePresence } from "framer-motion";
-import Hero from "../components/sections/Hero/index"
-
+import Hero from "@/components/sections/Hero"
+import AmbientSound from "@/components/AmbientSound";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -21,6 +21,9 @@ export default function Home() {
       <AnimatePresence mode="wait">
         { isLoading && <Preloader /> }
       </AnimatePresence>
+
+      <AmbientSound/>
+
       <div className={styles.containerSecrions}>
         <section>
           <Hero/>
