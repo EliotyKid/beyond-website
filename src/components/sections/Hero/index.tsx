@@ -30,20 +30,20 @@ const index = ({canAnimate}: props) => {
         variants={opacity}
         initial="initial"
         animate={`${canAnimate ? "enter" : "initial"}`}
-        custom={1}
+        custom={3}
         className={styles.book}
       >
-        <Book/>
+        <ScrollIndicator/>
       </motion.div>
 
       <motion.div 
         variants={opacity}
         initial="initial"
         animate={`${canAnimate ? "enter" : "initial"}`}
-        custom={3}
+        custom={1}
         className={styles.book}
       >
-        <ScrollIndicator/>
+        <Book/>
       </motion.div>
     </div>
    );

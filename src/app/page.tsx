@@ -1,10 +1,17 @@
 "use client"
 import styles from "./page.module.scss"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Preloader from "@/components/Preloader"
 import { AnimatePresence } from "framer-motion";
 import Hero from "@/components/sections/Hero"
 import AmbientSound from "@/components/AmbientSound";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -18,8 +25,26 @@ export default function Home() {
     }, 2000)
   },[])
 
+  const mainRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<gsap.core.Timeline>(null)
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        // markers: true,
+        trigger: mainRef.current,
+        pin: ".container",
+        scrub: true,
+        start: "top top",
+        end: "+=16000px",
+      }
+    })
+
+
+    timelineRef.current = tl
+  }, { scope: mainRef})
+
   return (
-    <main>
+    <main ref={mainRef} className={styles.main}>
       <AnimatePresence 
         mode="wait"
         onExitComplete={() => setCanAnimateHero(true)}
@@ -29,7 +54,7 @@ export default function Home() {
 
       <AmbientSound/>
 
-      <div className={styles.containerSecrions}>
+      <div className={`${styles.containerSection} container`}>
         <section>
           <Hero canAnimate={canAnimateHero}/>
         </section>
