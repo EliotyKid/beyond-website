@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+ 
+  text-align: left;
+  visibility: hidden;
+}
+
+.splitWord {
+  will-change: transform, opacity;
+  font-size: 80px;
+}
