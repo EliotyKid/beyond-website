@@ -71,10 +71,13 @@ export default function Home() {
         onComplete: () => setCanAnimateMission(true),
         onStart: () => setCanAnimateMission(false)
       },">-0.35")
+      .to(".create",{
+        opacity: 0
+      },"<")
       
       .addLabel("callStart")
       .from(".call",{
-        
+
       })
 
     timelineRef.current = tl
@@ -100,7 +103,7 @@ export default function Home() {
           <Create canAnimate={canAnimateCreate}/>
         </section>
         <section className="mission">
-         <Mission />
+         <Mission canAnimate={canAnimateMission}/>
         </section>
         <section className="call">
          

@@ -1,6 +1,5 @@
 import styles from "./style.module.scss"
 import Image from "next/image";
-import Title from "./Title"
 import SplitText from "@/components/SliptText";
 
 interface props {
