@@ -18,8 +18,8 @@ const index = ({canAnimate}: props) => {
         />
       </div>
       <div className={styles.titleDiv}>
-        <SplitText content="Create Your" canAnimate={canAnimate}/>
-        <SplitText content="Universe" canAnimate={canAnimate}/>
+        <SplitText style="megatitle" content="Create Your" canAnimate={canAnimate}/>
+        <SplitText style="megatitle" content="Universe" canAnimate={canAnimate}/>
       </div>
     </div>
    );

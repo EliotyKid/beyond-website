@@ -22,6 +22,8 @@ export default function Home() {
   const [canAnimateCreate, setCanAnimateCreate] = useState(false)
   const [canAnimateMission, setCanAnimateMission] = useState(false)
 
+  console.log("renderizou")
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)

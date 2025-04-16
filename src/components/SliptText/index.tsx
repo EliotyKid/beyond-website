@@ -4,12 +4,21 @@ import { animate, stagger } from "motion"
 import { splitText } from "motion-plus"
 import { useEffect, useRef } from "react"
 
+const Styles = {
+  title: styles.title,
+  text: styles.text,
+  megatitle: styles.megatitle,
+}
+
 interface props {
   content: string
   canAnimate: boolean
+  style?: 'title' | 'text' | 'megatitle'
+  duration?: number
+  delay?: number
 }
 
-export default function SplitText({ content, canAnimate }: props) {
+export default function SplitText({ content, canAnimate, style = 'title', duration=2, delay = 0.2}: props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const wordsRef = useRef<HTMLElement[] | null>(null)
 
@@ -39,9 +48,9 @@ export default function SplitText({ content, canAnimate }: props) {
           { opacity: [0, 1], y: [10, 0] },
           {
             type: "spring",
-            duration: 2,
+            duration: duration,
             bounce: 0.5,
-            delay: stagger(0.2),
+            delay: stagger(delay),
           }
         )
       })
@@ -50,7 +59,7 @@ export default function SplitText({ content, canAnimate }: props) {
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <h1 className={styles.splitWord}>
+      <h1 className={Styles[style]}>
         {content}
       </h1>
     </div>
