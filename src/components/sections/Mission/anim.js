@@ -1,7 +1,7 @@
 export const jimAnim = {
   initial: { 
     scale: 0.3,
-    opacity: 0.3
+    opacity: 0
   },
   enter: {
     scale: 1,

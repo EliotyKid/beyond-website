@@ -1,8 +1,10 @@
 export const jimAnim = {
   initial: {
-    y: +300
+    scale: 3,
+    // y: +300
   },
   enter: {
+    scale: 1,
     y: 0,
     transition: {
       duration: 1.3,

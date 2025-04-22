@@ -42,7 +42,7 @@ export default function Home() {
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        markers: true,
+        // markers: true,
         trigger: mainRef.current,
         pin: ".container",
         scrub: true,
@@ -56,7 +56,6 @@ export default function Home() {
     })
     
 
-    const scale = 6
     tl.addLabel("heroStart")
     .to({},{duration: .5})
 
