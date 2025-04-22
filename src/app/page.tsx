@@ -5,6 +5,7 @@ import Preloader from "@/components/Preloader"
 import Hero from "@/components/sections/Hero"
 import Create from "@/components/sections/Create"
 import Mission from "@/components/sections/Mission"
+import Call from "@/components/sections/Call"
 import AmbientSound from "@/components/AmbientSound";
 
 import { AnimatePresence } from "framer-motion";
@@ -21,6 +22,9 @@ export default function Home() {
   const [canAnimateHero, setCanAnimateHero] = useState(false) 
   const [canAnimateCreate, setCanAnimateCreate] = useState(false)
   const [canAnimateMission, setCanAnimateMission] = useState(false)
+  const [canAnimateCall, setCanAnimateCall] = useState(false)
+  const mainRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<gsap.core.Timeline>(null)
 
   console.log("renderizou")
 
@@ -32,8 +36,7 @@ export default function Home() {
     }, 2000)
   },[])
 
-  const mainRef = useRef<HTMLDivElement>(null)
-  const timelineRef = useRef<gsap.core.Timeline>(null)
+
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -43,44 +46,67 @@ export default function Home() {
         scrub: true,
         start: "top top",
         end: "+=16000px",
+      },
+      defaults: {
+        duration: 1.5,        // ou o valor que preferir
+        ease: "power2.inOut", // qualquer ease suave
       }
     })
+    
 
-    const scale = 1.5
-
+    const scale = 6
     tl.addLabel("heroStart")
-      .to(".hero",{duration: 0.1})
+    .to({},{duration: .5})
 
       .addLabel("createStart")
-      .from(".create", {
+      .from(".create",{
         opacity: 0,
-        duration: 0.5,
         onComplete: () => setCanAnimateCreate(true),
         onStart: () => setCanAnimateCreate(false)
       })
-      .addPause(1)
-      .to(".create", {
-        scale: scale+4,
-        yPercent: "-160"
-      })  
+      .to({},{duration: 1})
+      .to(".create",{
+        scale: 3,
+        yPercent: "-80"
+      })
+      
 
       .addLabel("missionStart")
-      .from(".mission", {
+      .from(".mission",{
         opacity: 0,
         scale: 0,
         borderRadius: "100%",
-        duration: 0.5,
         onComplete: () => setCanAnimateMission(true),
-        onStart: () => setCanAnimateMission(false)
-      },">-0.35")
+        onStart: () => setCanAnimateMission(false),
+      })
       .to(".create",{
-        opacity: 0
+        opacity: 0,
+        scale: 7,
+        yPercent: "-186"
       },"<")
+      .to({},{duration: 1})
+      .to(".mission",{
+        scale: 8,
+        xPercent: "+100",
+        yPercent: "+170"
+      })
       
       .addLabel("callStart")
       .from(".call",{
-
+        opacity: 0,
+        scale: 0,
+        onComplete: () => setCanAnimateCall(true),
+        onStart: () => setCanAnimateCall(false),
       })
+      .to(".mission",{
+        scale: 12,
+        opacity: 0,
+        xPercent: "+150",
+        yPercent: "+255"
+      },"<")
+      .to({},{duration: 1})
+    
+      
 
     timelineRef.current = tl
   }, { scope: mainRef})
@@ -108,7 +134,7 @@ export default function Home() {
          <Mission canAnimate={canAnimateMission}/>
         </section>
         <section className="call">
-         
+         <Call canAnimate={canAnimateCall}/>
         </section>
       </div>
     </main>
