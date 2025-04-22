@@ -30,7 +30,8 @@ export const containerAnim = {
   initial: { 
     x: -100,
   },
-  enter: { delay: 2,
+  enter: { 
+    delay: 2,
     x: "0",
     transition: {
       duration: 1.3,

@@ -6,6 +6,7 @@ import Hero from "@/components/sections/Hero"
 import Create from "@/components/sections/Create"
 import Mission from "@/components/sections/Mission"
 import Call from "@/components/sections/Call"
+import Comunity from "@/components/sections/Comunity"
 import AmbientSound from "@/components/AmbientSound";
 
 import { AnimatePresence } from "framer-motion";
@@ -23,6 +24,7 @@ export default function Home() {
   const [canAnimateCreate, setCanAnimateCreate] = useState(false)
   const [canAnimateMission, setCanAnimateMission] = useState(false)
   const [canAnimateCall, setCanAnimateCall] = useState(false)
+  const [canAnimateComunity, setCanAnimateComunity] = useState(false)
   const mainRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<gsap.core.Timeline>(null)
 
@@ -100,11 +102,24 @@ export default function Home() {
         onStart: () => setCanAnimateCall(false),
       })
       .to(".mission",{
-        scale: 12,
+        scale: 20,
         opacity: 0,
-        xPercent: "+150",
-        yPercent: "+255"
+        xPercent: "+250",
+        yPercent: "+425"
       },"<")
+      .to({},{duration: 1})
+      
+      .addLabel("comunityStart")
+      .from(".comunity",{
+        opacity: 0,
+        scale: 0,
+        onComplete: () => setCanAnimateComunity(true),
+        onStart: () => setCanAnimateComunity(false)
+      })
+      .to(".call",{
+        opacity: 0,
+        scale: 8
+      }, "<")
       .to({},{duration: 1})
     
       
@@ -136,6 +151,9 @@ export default function Home() {
         </section>
         <section className="call">
          <Call canAnimate={canAnimateCall}/>
+        </section>
+        <section className="comunity">
+          <Comunity canAnimate={canAnimateComunity}/>
         </section>
       </div>
     </main>
