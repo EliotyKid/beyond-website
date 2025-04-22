@@ -95,6 +95,7 @@ export default function Home() {
       .from(".call",{
         opacity: 0,
         scale: 0,
+        borderRadius: "100%",
         onComplete: () => setCanAnimateCall(true),
         onStart: () => setCanAnimateCall(false),
       })
