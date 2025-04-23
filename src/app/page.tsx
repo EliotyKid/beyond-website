@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
+  const [activeSection, setActiveSection] = useState("Hero")
   const [canAnimateHero, setCanAnimateHero] = useState(false) 
   const [canAnimateCreate, setCanAnimateCreate] = useState(false)
   const [canAnimateMission, setCanAnimateMission] = useState(false)
@@ -27,6 +28,39 @@ export default function Home() {
   const [canAnimateComunity, setCanAnimateComunity] = useState(false)
   const mainRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<gsap.core.Timeline>(null)
+
+  const handleNavClick = (label: string) => {
+    const tl = timelineRef.current
+    const scrollTrigger = tl?.scrollTrigger
+    if (!scrollTrigger || !tl) return
+
+    const labelTime =  tl.labels[`${label}Start`]
+    const totalDuration = tl.duration()
+
+    const offsetMap = {
+      Hero: 0,
+      Create: 0.16,
+      Mission: 0.12,
+      Call: 0.12,
+      Comunity: 0.25
+    }
+
+    const baseProgress = labelTime / totalDuration
+    const offset = offsetMap[label as keyof typeof offsetMap] || 0
+    const targetProgress = Math.min(Math.max(baseProgress + offset, 0), 1)
+
+    const scrollStart = scrollTrigger.start
+    const scrollEnd = scrollTrigger.end
+    const scrollTarget = scrollStart + (scrollEnd - scrollStart) * targetProgress
+
+    gsap.to(window, {
+      scrollTo: scrollTarget,
+      duration: 4,
+      ease: "power2.out"
+    })
+
+
+  }
 
   console.log("renderizou")
 
@@ -48,6 +82,14 @@ export default function Home() {
         scrub: true,
         start: "top top",
         end: "+=16000px",
+        onUpdate: self => {
+          const progress = self.progress
+          if (progress < 0.1) setActiveSection("Home")
+          else if (progress < 0.3) setActiveSection("Create")
+          else if (progress < 0.65) setActiveSection("Mission")
+          else if (progress < 0.8) setActiveSection("Call")
+          else setActiveSection("Comunity")
+        }
       },
       defaults: {
         duration: 1.5,        // ou o valor que preferir
@@ -56,10 +98,10 @@ export default function Home() {
     })
     
 
-    tl.addLabel("heroStart")
+    tl.addLabel("HomeStart")
     .to({},{duration: .5})
 
-      .addLabel("createStart")
+      .addLabel("CreateStart")
       .from(".create",{
         opacity: 0,
         onComplete: () => setCanAnimateCreate(true),
@@ -72,7 +114,7 @@ export default function Home() {
       })
       
 
-      .addLabel("missionStart")
+      .addLabel("MissionStart")
       .from(".mission",{
         opacity: 0,
         scale: 0,
@@ -92,7 +134,7 @@ export default function Home() {
         yPercent: "+170"
       })
       
-      .addLabel("callStart")
+      .addLabel("CallStart")
       .from(".call",{
         opacity: 0,
         scale: 0,
@@ -108,7 +150,7 @@ export default function Home() {
       },"<")
       .to({},{duration: 1})
       
-      .addLabel("comunityStart")
+      .addLabel("ComunityStart")
       .from(".comunity",{
         opacity: 0,
         scale: 0,
@@ -138,7 +180,20 @@ export default function Home() {
 
       <AmbientSound/>
 
+      <nav className={styles.navbar}>
+      {["Home","Create","Mission","Call","Comunity"].map((section) => (
+        <button
+          key={section}
+          title={section}
+          onClick={() => handleNavClick(section)}
+        >
+          <div className={activeSection === section ? styles.dotActive  : styles.dot}></div>
+          <h1 className={activeSection === section ? styles.textActive  : styles.text }>{section}</h1>
+        </button>
+      ))}
+      </nav>
       <div className={`${styles.containerSection} container`}>
+
         <section className="hero">
           <Hero canAnimate={canAnimateHero}/>
         </section>
